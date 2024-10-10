@@ -7,10 +7,12 @@ from time import time
 class Blockchain(object):
 
     def __init__(self):
-
-        self.chain = []     #This is a list that will store all the blocks in the blockchain. Each block represents a set of transactions and some metadata.
-
         self.current_transactions = []      #This is a list that holds the current transactions until they are added to a block. Once the block is created, these transactions will be cleared from this list.
+        
+        self.chain = []     #This is a list that will store all the blocks in the blockchain. Each block represents a set of transactions and some metadata.
+        
+        self.new_block(previous_hash = 1, proof = 100)
+
         
     def new_block(self):
         """
@@ -51,6 +53,9 @@ class Blockchain(object):
         
         return self.last_block['index'] + 1
 
+    @property
+    def last_block(self):
+        return self.chain[-1]
         
     
     @staticmethod
@@ -67,6 +72,4 @@ class Blockchain(object):
         return hashlib.sha256(block_string).hexdigest()
         
     
-    @property
-    def last_block(self):
-        return self.chain[-1]
+    
